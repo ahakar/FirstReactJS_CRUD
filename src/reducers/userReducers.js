@@ -14,6 +14,8 @@ const userReducers = (state = {user: [], name: "abcd"}, action) => {
 				name: action.payload.userUpdatedData.name,
 				email: action.payload.userUpdatedData.email,
 				mobile: action.payload.userUpdatedData.mobile,
+				dob: action.payload.userUpdatedData.dob,
+				dot: action.payload.userUpdatedData.dot,
 			}
 			return {
 				user: [...state.user.slice(0, indexToUpdate), updatedUserValue, 

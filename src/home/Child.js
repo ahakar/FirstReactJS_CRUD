@@ -14,6 +14,8 @@ class Child extends React.Component{
       updateName: "",
       updateEmail: "",
       updateMobile: "",
+      updateDob: "",
+      updateDot: "",
       updatedObject: {}
     }
     
@@ -48,6 +50,18 @@ class Child extends React.Component{
     })
   }
 
+  getUpdateDob(e){
+    this.setState({
+      updateDob: e.target.value
+    })
+  }
+
+  getUpdateDot(e){
+    this.setState({
+      updateDot: e.target.value
+    })
+  }
+
   editData(user, index){
     console.log("update", user, index);
     this.setState({
@@ -60,24 +74,30 @@ class Child extends React.Component{
     let oldName = user.name;
     let oldEmail = user.email;
     let oldMobile = user.mobile;
+    let oldDob = user.dob;
+    let oldDot = user.dot;
     
 
         this.setState({
             updateName: (this.state.updateName) ?  this.state.updateName : oldName,
             updateEmail: (this.state.updateEmail) ?  this.state.updateEmail : oldEmail,
-            updateMobile: (this.state.updateMobile) ? this.state.updateMobile : oldMobile
+            updateMobile: (this.state.updateMobile) ? this.state.updateMobile : oldMobile,
+            updateDob: (this.state.updateDob) ? this.state.updateDob : oldDob,
+            updateDot: (this.state.updateDot) ? this.state.updateDot : oldDot
           }, () => {
-            console.log("state", this.state.updateName, this.state.updateEmail, this.state.updateMobile)
+            console.log("state", this.state.updateName, this.state.updateEmail, this.state.updateMobile, this.state.updateDob, this.state.updateDot)
             this.state.updatedObject['name'] = this.state.updateName;
             this.state.updatedObject['email'] = this.state.updateEmail;
             this.state.updatedObject['mobile'] = this.state.updateMobile;
+            this.state.updatedObject['dob'] = this.state.updateDob;
+            this.state.updatedObject['dot'] = this.state.updateDot;
             this.setState({
               updatedObject: this.state.updatedObject
             }, () => {
               console.log("updatedObject", this.state.updatedObject)
               if(this.state.updateName !== null && this.state.updateEmail !== null && this.state.updateMobile !== null){
                 if( this.state.updateName !== oldName || this.state.updateEmail !== oldEmail
-                 || this.state.updateMobile !== oldMobile) {
+                 || this.state.updateMobile !== oldMobile || this.state.updateDob !== oldDob || this.state.updateDot !== oldDot) {
                    this.props.updateUserData(this.state.updatedObject, idx);
                 }
               }
@@ -88,6 +108,8 @@ class Child extends React.Component{
                   updateName: "",
                   updateEmail: "",
                   updateMobile: "",
+                  updateDob: "",
+                  updateDot: "",
                   updatedObject: {}
                 })
               })
@@ -110,9 +132,11 @@ class Child extends React.Component{
           <thead className="thead-light">
             <tr>
               <th width="2%">#</th>
-              <th width="30%">Name</th>
-              <th width="30%">Email</th>
-              <th width="28%">Number</th>
+              <th width="20%">Name</th>
+              <th width="20%">Email</th>
+              <th width="18%">Number</th>
+              <th width="18%">DOB</th>
+              <th width="12%">DOT</th>
               <th width="5%">Edit</th>
               <th width="5%">Delete</th>
             </tr>
@@ -124,13 +148,24 @@ class Child extends React.Component{
                   <tr>
                     <th scope="row">{idx}</th>
                     <td>
-                      <input type="text" defaultValue={data.name} placeholder="name..." onChange={this.getUpdateName.bind(this)} />
+                      <input type="text" className="form-control" defaultValue={data.name} placeholder="name..." onChange={this.getUpdateName.bind(this)} />
                     </td>
                     <td>
-                      <input type="email" defaultValue={data.email} placeholder="email..." onChange={this.getUpdateEmail.bind(this)} />
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text" id="inputGroupPrepend">@</span>
+                        </div>
+                        <input type="email" className="form-control" defaultValue={data.email} placeholder="email..." onChange={this.getUpdateEmail.bind(this)} />
+                      </div>
                     </td>
                     <td>
-                      <input type="number" defaultValue={data.mobile} placeholder="mobile..." onChange={this.getUpdateMobile.bind(this)} />
+                      <input type="number" className="form-control" defaultValue={data.mobile} placeholder="mobile..." onChange={this.getUpdateMobile.bind(this)} />
+                    </td>
+                    <td>
+                      <input type="date" className="form-control" defaultValue={data.dob} onChange={this.getUpdateDob.bind(this)} />
+                    </td>
+                    <td>
+                      <input type="time" className="form-control" defaultValue={data.dot} onChange={this.getUpdateDot.bind(this)} />
                     </td>
                     <td>
                       <p onClick={this.toggleEditData.bind(this, data, idx)}>U</p>
@@ -152,6 +187,12 @@ class Child extends React.Component{
                   </td>
                   <td>
                     {data.mobile}
+                  </td>
+                  <td>
+                    {data.dob}
+                  </td>
+                  <td>
+                    {data.dot}
                   </td>
                   <td>
                     <p onClick={this.editData.bind(this, data, idx)}>E</p>
