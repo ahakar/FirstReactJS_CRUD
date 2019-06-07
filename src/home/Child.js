@@ -105,32 +105,65 @@ class Child extends React.Component{
   render(){
     return (
       <div>
-
-        {(this.state.userArray.map((data, idx) => {
-          if(idx === this.state.toggleIndex){
-            return(
-              <div key={idx}>
-                <input type="text" defaultValue={data.name} 
-                placeholder="name..." onChange={this.getUpdateName.bind(this)} />
-                <input type="email" defaultValue={data.email} 
-                placeholder="email..." onChange={this.getUpdateEmail.bind(this)} />
-                <input type="number" defaultValue={data.mobile}
-                 placeholder="mobile..." onChange={this.getUpdateMobile.bind(this)} />
-                <p onClick={this.toggleEditData.bind(this, data, idx)}>Edit</p>
-                <span onClick={this.deleteData.bind(this, idx)}>X</span>
-              </div>
-            );
-          }
-          return(
-            <div key={idx}>
-              <p>{data.name}</p>
-              <p>{data.email}</p>
-              <p>{data.mobile}</p>
-              <p onClick={this.editData.bind(this, data, idx)}>Edit</p>
-              <span onClick={this.deleteData.bind(this, idx)}>X</span>
-            </div>
-          );
-        }))}
+        <h3>List : </h3>
+        <table className="table">
+          <thead className="thead-light">
+            <tr>
+              <th width="2%">#</th>
+              <th width="30%">Name</th>
+              <th width="30%">Email</th>
+              <th width="28%">Number</th>
+              <th width="5%">Edit</th>
+              <th width="5%">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(this.state.userArray.map((data, idx) => {
+              if(idx === this.state.toggleIndex) {
+                return(
+                  <tr>
+                    <th scope="row">{idx}</th>
+                    <td>
+                      <input type="text" defaultValue={data.name} placeholder="name..." onChange={this.getUpdateName.bind(this)} />
+                    </td>
+                    <td>
+                      <input type="email" defaultValue={data.email} placeholder="email..." onChange={this.getUpdateEmail.bind(this)} />
+                    </td>
+                    <td>
+                      <input type="number" defaultValue={data.mobile} placeholder="mobile..." onChange={this.getUpdateMobile.bind(this)} />
+                    </td>
+                    <td>
+                      <p onClick={this.toggleEditData.bind(this, data, idx)}>U</p>
+                    </td>
+                    <td>
+                      <span onClick={this.deleteData.bind(this, idx)}>X</span>
+                    </td>
+                  </tr>
+                );
+              }
+              return(
+                <tr>
+                  <th scope="row">{idx}</th>
+                  <td>
+                    {data.name}
+                  </td>
+                  <td>
+                    {data.email}
+                  </td>
+                  <td>
+                    {data.mobile}
+                  </td>
+                  <td>
+                    <p onClick={this.editData.bind(this, data, idx)}>E</p>
+                  </td>
+                  <td>
+                    <span onClick={this.deleteData.bind(this, idx)}>X</span>
+                  </td>
+                </tr>
+              );
+            }))}
+          </tbody>
+        </table>
       </div>
     );
   }
