@@ -143,7 +143,7 @@ class Home extends Component{
 							<input type="date" className="form-control" value={this.state.dob} onChange={this.getDob.bind(this)} required/>
 						</div>
 						<div className="form-group col-md-4 mb-3">
-							<label>DOT</label>
+							<label>TOB</label>
 							<input type="time" className="form-control" value={this.state.dot} onChange={this.getDot.bind(this)} required/>
 						</div>
 					</div>
